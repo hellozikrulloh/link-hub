@@ -1,0 +1,523 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-color: #050508;
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-border: rgba(255, 255, 255, 0.06);
+    --text-main: #ffffff;
+    --text-muted: #8b8b9f;
+    --accent-purple: #8b5cf6;
+    --accent-neon: #d946ef;
+
+    /* Brand Colors */
+    --tg-color: #2AABEE;
+    --ig-color-1: #f09433;
+    --ig-color-2: #bc1888;
+    --yt-color: #FF0000;
+    --pin-color: #E60023;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1.5rem;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Mobil va planshet uchun ruxsat etilgan scroll */
+}
+
+/* Og'ir fon animatsiyalari Lottie uchun olib tashlandi */
+
+/* Main Container */
+.container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 1;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Lightweight Bento Card Base (optimized for GPU) */
+.bento-card {
+    background: rgba(25, 25, 35, 0.6); /* Yengil yarim shaffof fon (RGBA) */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Yengil chegara */
+    border-radius: 28px;
+    /* backdrop-filter mutlaqo olib tashlandi - 100% CPU nagruzkasini oldini olish uchun */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Header / Profile Section */
+.profile-card {
+    text-align: center;
+    padding: 3.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.avatar-container {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--accent-purple), var(--accent-neon), #38bdf8, var(--accent-purple));
+    background-size: 300% 300%;
+    z-index: 1;
+    animation: spinGradient 4s linear infinite;
+    opacity: 0.8;
+}
+
+.avatar-inner {
+    position: absolute;
+    inset: 3px;
+    background: var(--bg-color);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: 3;
+    position: relative;
+    padding: 3px;
+}
+
+@keyframes spinGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, #fff, #d1d5db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.bio {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 500px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* Bento Grid */
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+/* Link Cards */
+.link-card {
+    text-decoration: none;
+    color: var(--text-main);
+    display: flex;
+    padding: 2.25rem;
+    /* transition: all olib tashlandi, o'rniga eng yengil parametrlar qoldirildi */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.4s ease, border-color 0.4s ease;
+    transform: scale(1);
+}
+
+.card-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    z-index: 2;
+    position: relative;
+    width: 100%;
+}
+
+.icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    justify-content: center;
+}
+
+.text-content h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: color 0.3s ease;
+}
+
+.text-content p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: color 0.3s ease;
+}
+
+/* Hover effects - Faqat GPU da silliq ishlovchi qismlar qoldirildi */
+.link-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* Telegram Branding */
+.telegram-card:hover .icon-wrapper {
+    background: var(--tg-color);
+    color: white;
+    border-color: var(--tg-color);
+    box-shadow: 0 10px 25px rgba(42, 171, 238, 0.4);
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.telegram-card:hover {
+    border-color: rgba(42, 171, 238, 0.4);
+}
+
+/* Instagram Branding */
+.instagram-card:hover .icon-wrapper {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 10px 25px rgba(225, 48, 108, 0.4);
+    transform: scale(1.1) rotate(5deg);
+}
+
+.instagram-card:hover {
+    border-color: rgba(225, 48, 108, 0.4);
+}
+
+/* YouTube Branding */
+.youtube-card:hover .icon-wrapper {
+    background: var(--yt-color);
+    color: white;
+    border-color: var(--yt-color);
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.youtube-card:hover {
+    border-color: rgba(255, 0, 0, 0.4);
+}
+
+/* Pinterest Branding */
+.pinterest-card:hover .icon-wrapper {
+    background: var(--pin-color);
+    color: white;
+    border-color: var(--pin-color);
+    box-shadow: 0 10px 25px rgba(230, 0, 35, 0.4);
+    transform: scale(1.1) rotate(5deg);
+}
+
+.pinterest-card:hover {
+    border-color: rgba(230, 0, 35, 0.4);
+}
+
+/* Footer */
+.footer {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.social-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.social-icon:hover.fa-telegram {
+    color: var(--tg-color);
+}
+
+.social-icon:hover.fa-instagram {
+    color: #e1306c;
+}
+
+.social-icon:hover.fa-youtube {
+    color: var(--yt-color);
+}
+
+.social-icon:hover.fa-pinterest {
+    color: var(--pin-color);
+}
+
+.social-icon:hover.fa-linkedin-in {
+    color: #0a66c2;
+}
+
+.copyright {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- PC Dashboard Optimized Mode --- */
+@media (min-width: 901px) {
+    body {
+        min-height: 100vh;
+        overflow-y: auto;
+        padding: 4vh 1.5rem;
+    }
+
+    .container {
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .profile-card {
+        padding: 4vh 2rem;
+        gap: 1.5vh;
+    }
+
+    .avatar-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .name {
+        font-size: 2.2rem;
+    }
+
+    .bio {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+
+    .links-grid {
+        gap: 1.5rem;
+    }
+
+    /* Yangi (toq sonli) linklar qo'shilsa ham dizayn buzilmasligi uchun, 
+       oxirgi toq element ikkita ustunni egallab markazlashadi */
+    .link-card:last-child:nth-child(odd) {
+        grid-column: span 2;
+    }
+
+    .link-card {
+        padding: 3vh 2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .card-content {
+        align-items: center;
+    }
+
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+
+    .text-content h2 {
+        font-size: 1.25rem;
+    }
+
+    .text-content p {
+        font-size: 0.95rem;
+    }
+
+    .footer {
+        padding: 3vh 2rem;
+        margin-top: 1vh;
+    }
+}
+
+/* Responsive Design */
+/* Tablet */
+@media (max-width: 900px) {
+    .container {
+        max-width: 750px;
+    }
+}
+
+/* Mobile (Minimalist vertical cards, ergonomic) */
+@media (max-width: 680px) {
+    body {
+        padding: 1.5rem 1rem;
+    }
+
+    .container {
+        gap: 1.25rem;
+    }
+
+    .bento-card {
+        border-radius: 24px;
+    }
+
+    .profile-card {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .name {
+        font-size: 1.8rem;
+    }
+
+    .bio {
+        font-size: 1rem;
+    }
+
+    .links-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .link-card {
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+
+    .card-content {
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .icon-wrapper {
+        width: 54px;
+        height: 54px;
+        font-size: 1.6rem;
+        border-radius: 16px;
+    }
+
+    .text-content h2 {
+        font-size: 1.15rem;
+    }
+
+    .text-content p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .link-card:hover {
+        /* Muted hover effect for mobile to prevent jittering */
+        transform: scale(1.01);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* WOW Effect Micro-animations (Replacing Lottie) */
+@keyframes iconPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+@keyframes iconWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg) scale(1.1); }
+    75% { transform: rotate(8deg) scale(1.1); }
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px) scale(1.05); }
+}
+
+.telegram-card:hover .icon-wrapper i {
+    animation: iconPulse 1s ease-in-out infinite;
+}
+
+.instagram-card:hover .icon-wrapper i {
+    animation: iconWiggle 0.6s ease-in-out infinite;
+}
+
+.youtube-card:hover .icon-wrapper i {
+    animation: iconPulse 0.8s ease-in-out infinite;
+}
+
+.pinterest-card:hover .icon-wrapper i {
+    animation: iconBounce 0.8s ease-in-out infinite;
+}
+
+    .footer {
+        padding: 2rem;
+    }
+}
